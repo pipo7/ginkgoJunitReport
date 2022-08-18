@@ -12,8 +12,9 @@ import (
 	"github.com/onsi/ginkgo/reporters"
 	. "github.com/onsi/gomega"
 
-	testing2 "ginkgotutorialOldVersion/testing2"
 	"testing"
+
+	testing2 "github.com/pipo7/ginkgoJunitReport/testing2"
 )
 
 // used for custom reporters when using old code.
