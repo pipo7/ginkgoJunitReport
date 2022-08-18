@@ -2,6 +2,7 @@ package testing2_test
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 	"path"
@@ -34,11 +35,24 @@ func TestTesting(t *testing.T) {
 		if err := os.MkdirAll(ReportDir, 0755); err != nil {
 			log.Fatalf("Failed creating report directory: %v", err)
 		} else {
-			r = append(r, reporters.NewJUnitReporter(path.Join(ReportDir, fmt.Sprintf("junit_%v%02d.xml", ReportPrefix, config.GinkgoConfig.ParallelNode))))
+			r = append(r, reporters.NewJUnitReporter(path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, config.GinkgoConfig.ParallelNode))))
 		}
 	}
 	log.Printf("\nStarting e2e run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
 	g.RunSpecsWithDefaultAndCustomReporters(t, "Kubernete-E2E-suite", r)
+
+	// Open our xmlFile
+	xmlFile, err := os.Open("outputDir/TestReportPrefix_junit_01.xml")
+	// if we os.Open returns an error then handle it
+	if err != nil {
+		fmt.Println(err)
+	}
+	fmt.Println("Successfully Opened junit_TestReportPrefix01.xml")
+	// defer the closing of our xmlFile so that we can parse it later on
+	defer xmlFile.Close()
+	// read our opened xmlFile as a byte array.
+	byteValue, _ := ioutil.ReadAll(xmlFile)
+	fmt.Println(string(byteValue))
 }
 
 // ReportAfterSuite is called exactly once at the end of the suite after any AfterSuite nodes have run
