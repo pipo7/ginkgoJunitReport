@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
   <testsuite name="Kubernete-E2E-suite" tests="4" failures="1" errors="0" time="0">
-      <testcase name="1PersonIsChild() When the person is child returns True" classname="Kubernete-E2E-suite" time="1.1447e-05">
+      <testcase name="1PersonIsChild() When the person is child then it returns True" classname="Kubernete-E2E-suite" time="7.639e-06">
           <failure type="Failure">/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:67&#xA;You may only call It from within a Describe, Context or When&#xA;/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:67</failure>
       </testcase>
-      <testcase name="1PersonIsChild() When the person is NOT a child returns True" classname="Kubernete-E2E-suite" time="2.016e-06"></testcase>
-      <testcase name="1PersonIsChild() When the person is child returns True" classname="Kubernete-E2E-suite" time="8.303e-06"></testcase>
-      <testcase name="1PersonIsChild() When the person is NOT a child returns True" classname="Kubernete-E2E-suite" time="2.245e-06"></testcase>
+      <testcase name="1PersonIsChild() When the person is NOT a child then it returns False" classname="Kubernete-E2E-suite" time="2.667e-06"></testcase>
+      <testcase name="1PersonIsChild() When the person is child then it returns True" classname="Kubernete-E2E-suite" time="6.883e-06"></testcase>
+      <testcase name="1PersonIsChild() When the person is NOT a child then it returns False" classname="Kubernete-E2E-suite" time="1.32e-06"></testcase>
   </testsuite>

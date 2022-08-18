@@ -63,20 +63,20 @@ var _ = g.AfterSuite(func() {
 })
 
 var _ = g.Describe("1PersonIsChild()", func() {
-	g.Context("When the person is child", func() {
+	g.Context("When the person is child then it", func() {
 		g.It("returns True", func() {
 			person := testing2.Person{
 				Age: 10,
 			}
 			response := person.IsChild()
-			fmt.Println("response is ", response)
+			fmt.Println("Response is ", response)
 			Expect(response).To(BeTrue()) // note here we can also write Expect(person.IsChild()).To(BeTrue())
 			// So IsChild mostly user defined method in the file being tested
 		})
 		fmt.Println("Current spec report example:", g.CurrentGinkgoTestDescription())
 	})
-	g.Context("When the person is NOT a child", func() {
-		g.It("returns True", func() {
+	g.Context("When the person is NOT a child then it", func() {
+		g.It("returns False", func() {
 			person := testing2.Person{
 				Age: 20,
 			}
