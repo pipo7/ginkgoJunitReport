@@ -1,4 +1,4 @@
-module ginkgotutorialOldVersion
+module github.com/pipo7/ginkgoJunitReport
 
 go 1.19
 
