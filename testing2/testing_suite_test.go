@@ -2,13 +2,12 @@ package testing2_test
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"path"
 
 	// using old version as ginkgo.
-	g "github.com/onsi/ginkgo"
+	. "github.com/onsi/ginkgo"
 	"github.com/onsi/ginkgo/config"
 	"github.com/onsi/ginkgo/reporters"
 	. "github.com/onsi/gomega"
@@ -25,10 +24,10 @@ const (
 )
 
 func TestTesting(t *testing.T) {
-	RegisterFailHandler(g.Fail)
-	g.RunSpecs(t, "Testing Suite1")
+	RegisterFailHandler(Fail)
+	RunSpecs(t, "Testing Suite1")
 	// Use below code with old version of ginkgo
-	var r []g.Reporter
+	var r []Reporter
 	if ReportDir != "" {
 		// TODO: we should probably only be trying to create this directory once
 		// rather than once-per-Ginkgo-node.
@@ -39,32 +38,14 @@ func TestTesting(t *testing.T) {
 		}
 	}
 	log.Printf("\nStarting e2e run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
-	g.RunSpecsWithDefaultAndCustomReporters(t, "Kubernete-E2E-suite", r)
+	RunSpecsWithDefaultAndCustomReporters(t, "Kubernete-E2E-suite", r)
 
-	// Open our xmlFile
-	xmlFile, err := os.Open("outputDir/TestReportPrefix_junit_01.xml")
-	// if we os.Open returns an error then handle it
-	if err != nil {
-		fmt.Println(err)
-	}
-	fmt.Println("Successfully Opened junit_TestReportPrefix01.xml")
-	// defer the closing of our xmlFile so that we can parse it later on
-	defer xmlFile.Close()
-	// read our opened xmlFile as a byte array.
-	byteValue, _ := ioutil.ReadAll(xmlFile)
-	fmt.Println(string(byteValue))
+	updateXML("outputDir/TestReportPrefix_junit_01.xml")
 }
 
-// ReportAfterSuite is called exactly once at the end of the suite after any AfterSuite nodes have run
-// IMPORTANT ReportAfterSuite only runs on process #1 and receives a Report that aggregates the SpecReports from all processes.
-var _ = g.AfterSuite(func() {
-	// process report
-	log.Println("Printing All the reports after suite")
-})
-
-var _ = g.Describe("1PersonIsChild()", func() {
-	g.Context("When the person is child then it", func() {
-		g.It("returns True", func() {
+var _ = Describe("1PersonIsChild()", func() {
+	Context("When the person is child then it", func() {
+		It("returns True", func() {
 			person := testing2.Person{
 				Age: 10,
 			}
@@ -73,16 +54,16 @@ var _ = g.Describe("1PersonIsChild()", func() {
 			Expect(response).To(BeTrue()) // note here we can also write Expect(person.IsChild()).To(BeTrue())
 			// So IsChild mostly user defined method in the file being tested
 		})
-		fmt.Println("Current spec report example:", g.CurrentGinkgoTestDescription())
+		fmt.Println("Current spec report example1:", CurrentGinkgoTestDescription())
 	})
-	g.Context("When the person is NOT a child then it", func() {
-		g.It("returns False", func() {
+	Context("When the person is NOT a child then it", func() {
+		It("returns False", func() {
 			person := testing2.Person{
 				Age: 20,
 			}
 			response := person.IsChild()
 			Expect(response).To(BeFalse())
 		})
-		fmt.Println("Current spec report example:", g.CurrentGinkgoTestDescription())
+		fmt.Println("Current spec report example2:", CurrentGinkgoTestDescription())
 	})
 })
