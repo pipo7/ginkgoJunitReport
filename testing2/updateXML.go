@@ -2,11 +2,11 @@ package testing2
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"os"
 )
 
-func UpdateXML(filename string) {
+func ReadXML(filename string) {
 	// Open our xmlFile
 	xmlFile, err := os.Open(filename)
 	// if we os.Open returns an error then handle it
@@ -17,6 +17,7 @@ func UpdateXML(filename string) {
 	// defer the closing of our xmlFile so that we can parse it later on
 	defer xmlFile.Close()
 	// read our opened xmlFile as a byte array.
-	byteValue, _ := ioutil.ReadAll(xmlFile)
+	// byteValue, _ := ioutil.ReadAll(xmlFile)
+	byteValue, _ := io.ReadAll(xmlFile)
 	fmt.Println(string(byteValue))
 }

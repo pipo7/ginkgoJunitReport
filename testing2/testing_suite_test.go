@@ -40,7 +40,7 @@ func TestTesting(t *testing.T) {
 	log.Printf("\nStarting e2e run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
 	RunSpecsWithDefaultAndCustomReporters(t, "Kubernete-E2E-suite", r)
 
-	testing2.UpdateXML("outputDir/TestReportPrefix_junit_01.xml")
+	testing2.ReadXML("outputDir/TestReportPrefix_junit_01.xml")
 }
 
 var _ = Describe("1PersonIsChild()", func() {
