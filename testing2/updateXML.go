@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func updateXML(filename string) {
+func UpdateXML(filename string) {
 	// Open our xmlFile
 	xmlFile, err := os.Open(filename)
 	// if we os.Open returns an error then handle it
