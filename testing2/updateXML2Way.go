@@ -46,7 +46,7 @@ func ReadTheXML(filename string) ([]byte, error) {
 	if err != nil {
 		return []byte{}, err
 	}
-	fmt.Println("Successfully read the File :", filename)
+	fmt.Println("Successfully read the File as :", string(byteValue))
 	return byteValue, nil
 }
 

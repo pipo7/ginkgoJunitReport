@@ -51,7 +51,7 @@ func TestTesting(t *testing.T) {
 	if err != nil {
 		log.Fatalf("Failed reading the XML: %v", err)
 	}
-	err = testing2.ModifyTheXML(filePath, filebytes, "JIRAID-111")
+	err = testing2.ModifyTheXML(filePath, filebytes, "JIRAID-777")
 	if err != nil {
 		log.Fatalf("Failed to modify the XML: %v", err)
 	}

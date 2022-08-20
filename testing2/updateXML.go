@@ -16,6 +16,7 @@ func ReadXML(filename string) []byte {
 	fmt.Println("Successfully Opened ", filename)
 	defer xmlFile.Close()
 	byteValue, _ := io.ReadAll(xmlFile)
+	fmt.Println("ReadXML as :", string(byteValue))
 	return byteValue
 
 }
