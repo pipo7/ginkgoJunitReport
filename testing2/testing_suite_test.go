@@ -28,22 +28,25 @@ func TestTesting(t *testing.T) {
 	RunSpecs(t, "Testing Suite1")
 	// Use below code with old version of ginkgo
 	var r []Reporter
+	var filePath string
 	if ReportDir != "" {
 		// TODO: we should probably only be trying to create this directory once
 		// rather than once-per-Ginkgo-node.
 		if err := os.MkdirAll(ReportDir, 0755); err != nil {
 			log.Fatalf("Failed creating report directory: %v", err)
 		} else {
-			r = append(r, reporters.NewJUnitReporter(path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, config.GinkgoConfig.ParallelNode))))
+			filePath = path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, config.GinkgoConfig.ParallelNode))
+			r = append(r, reporters.NewJUnitReporter(filePath))
 		}
 	}
 	log.Printf("\nStarting e2e run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
 	RunSpecsWithDefaultAndCustomReporters(t, "Kubernete-E2E-suite", r)
 
-	testing2.ReadXML("outputDir/TestReportPrefix_junit_01.xml")
+	filebytes := testing2.ReadXML(filePath)
+	testing2.ModifyXML(filePath, filebytes)
 }
 
-var _ = Describe("1PersonIsChild()", func() {
+var _ = Describe("Test1 IsPersonAChild()", func() {
 	Context("When the person is child then it", func() {
 		It("returns True", func() {
 			person := testing2.Person{

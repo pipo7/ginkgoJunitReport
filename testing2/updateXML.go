@@ -4,20 +4,29 @@ import (
 	"fmt"
 	"io"
 	"os"
+	S "strings"
 )
 
-func ReadXML(filename string) {
-	// Open our xmlFile
+func ReadXML(filename string) []byte {
+
 	xmlFile, err := os.Open(filename)
-	// if we os.Open returns an error then handle it
 	if err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println("Successfully Opened ", filename)
-	// defer the closing of our xmlFile so that we can parse it later on
 	defer xmlFile.Close()
-	// read our opened xmlFile as a byte array.
-	// byteValue, _ := ioutil.ReadAll(xmlFile)
 	byteValue, _ := io.ReadAll(xmlFile)
-	fmt.Println(string(byteValue))
+	return byteValue
+
+}
+
+func ModifyXML(filename string, byteValue []byte) {
+	xmlString := string(byteValue)
+	modifiedXML := S.ReplaceAll(xmlString, " classname", " epicid=MBIPAPP-1234 classname")
+	fmt.Println("Modified String", modifiedXML)
+
+	err := os.WriteFile(filename, []byte(modifiedXML), 0644)
+	if err != nil {
+		panic(err)
+	}
 }
