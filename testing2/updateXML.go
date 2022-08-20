@@ -22,7 +22,7 @@ func ReadXML(filename string) []byte {
 
 func ModifyXML(filename string, byteValue []byte) {
 	xmlString := string(byteValue)
-	modifiedXML := S.ReplaceAll(xmlString, " classname", " epicid=MBIPAPP-1234 classname")
+	modifiedXML := S.ReplaceAll(xmlString, " classname", " epicid=JIRAID-1234567 classname")
 	fmt.Println("Modified String", modifiedXML)
 
 	err := os.WriteFile(filename, []byte(modifiedXML), 0644)
