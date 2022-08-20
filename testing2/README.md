@@ -12,9 +12,4 @@ ginkgo -v
 ginkgo -slowSpecThreshold='5.0' -v  
 
 # Shows example of 
-ReportAfterEach 
-ReportBeforeEach
-ReportAfterSuite
-ReportAfterSuite --> custom report in our format.
-AddReportEnteries
-
+generate custom report using RunSpecsWithDefaultAndCustomReporters
