@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <testsuite name="Kubernete-E2E-suite" tests="4" failures="1" errors="0" time="0">
-      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid=JIRAID-1234567 classname="Kubernete-E2E-suite" time="9.262e-06">
-          <failure type="Failure">/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:51&#xA;You may only call It from within a Describe, Context or When&#xA;/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:51</failure>
+  <testsuite name="Kubernetes-E2E-suite" tests="4" failures="1" errors="0" time="0">
+      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid=JIRA-321 classname="Kubernetes-E2E-suite" time="1.0895e-05">
+          <failure type="Failure">/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:62&#xA;You may only call It from within a Describe, Context or When&#xA;/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:62</failure>
       </testcase>
-      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid=JIRAID-1234567 classname="Kubernete-E2E-suite" time="2.017e-06"></testcase>
-      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid=JIRAID-1234567 classname="Kubernete-E2E-suite" time="8.743e-06"></testcase>
-      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid=JIRAID-1234567 classname="Kubernete-E2E-suite" time="1.233e-06"></testcase>
+      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid=JIRA-321 classname="Kubernetes-E2E-suite" time="2.411e-06"></testcase>
+      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid=JIRA-321 classname="Kubernetes-E2E-suite" time="5.996e-06"></testcase>
+      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid=JIRA-321 classname="Kubernetes-E2E-suite" time="8.56e-07"></testcase>
   </testsuite>

@@ -7,53 +7,77 @@ import (
 	"os"
 )
 
-type JUnitTestSuite struct {
-	XMLName   xml.Name        `xml:"testsuite"`
-	TestCases []JUnitTestCase `xml:"testcase"`
-	Name      string          `xml:"name,attr"`
-	Tests     int             `xml:"tests,attr"`
-	Failures  int             `xml:"failures,attr"`
-	Errors    int             `xml:"errors,attr"`
-	Time      float64         `xml:"time,attr"`
+type CustomJUnitTestSuite struct {
+	XMLName   xml.Name              `xml:"testsuite"`
+	TestCases []CustomJUnitTestCase `xml:"testcase"`
+	Name      string                `xml:"name,attr"`
+	Tests     int                   `xml:"tests,attr"`
+	Failures  int                   `xml:"failures,attr"`
+	Errors    int                   `xml:"errors,attr"`
+	Time      float64               `xml:"time,attr"`
 }
-type JUnitTestCase struct {
-	Name           string               `xml:"name,attr"`
-	ClassName      string               `xml:"classname,attr"`
-	Epicid         string               `xml:"epicid,attr"`
-	FailureMessage *JUnitFailureMessage `xml:"failure,omitempty"`
-	Skipped        *JUnitSkipped        `xml:"skipped,omitempty"`
-	Time           float64              `xml:"time,attr"`
-	SystemOut      string               `xml:"system-out,omitempty"`
+type CustomJUnitTestCase struct {
+	Name      string `xml:"name,attr"`
+	ClassName string `xml:"classname,attr"`
+	// Add EPICID as attribute and non-mandatory
+	Epicid         string                     `xml:"epicid,attr,omitempty"`
+	FailureMessage *CustomJUnitFailureMessage `xml:"failure,omitempty"`
+	Skipped        *CustomJUnitSkipped        `xml:"skipped,omitempty"`
+	Time           float64                    `xml:"time,attr"`
+	SystemOut      string                     `xml:"system-out,omitempty"`
 }
-type JUnitSkipped struct {
+type CustomJUnitSkipped struct {
 	Message string `xml:",chardata"`
 }
-type JUnitFailureMessage struct {
+type CustomJUnitFailureMessage struct {
 	Type    string `xml:"type,attr"`
 	Message string `xml:",chardata"`
 }
 
-func ReadTheXML(filename string) []byte {
+func ReadTheXML(filename string) ([]byte, error) {
 
 	xmlFile, err := os.Open(filename)
 	if err != nil {
-		fmt.Println(err)
+		return []byte{}, err
 	}
-	fmt.Println("Successfully Opened ", filename)
+	fmt.Println("Successfully Opened the file: ", filename)
 	defer xmlFile.Close()
-	byteValue, _ := io.ReadAll(xmlFile)
-	return byteValue
-
+	byteValue, err := io.ReadAll(xmlFile)
+	if err != nil {
+		return []byte{}, err
+	}
+	fmt.Println("Successfully read the File :", filename)
+	return byteValue, nil
 }
 
-/*
-func ModifyTheXML(filename string, byteValue []byte) {
-	xmlString := string(byteValue)
-	modifiedXML := S.ReplaceAll(xmlString, " classname", " epicid=JIRAID-1234567 classname")
-	fmt.Println("Modified String", modifiedXML)
+func ModifyTheXML(filename string, byteValue []byte, tagNewValue string) error {
 
-	err := os.WriteFile(filename, []byte(modifiedXML), 0644)
+	myForm := &CustomJUnitTestSuite{}
+	err := xml.Unmarshal(byteValue, &myForm)
 	if err != nil {
-		panic(err)
+		return err
+	} else {
+		fmt.Println("Successfully unmarshalled the File in CustomJUnitTestSuite format")
 	}
-} */
+
+	// Use TestSuite ptr to access slice by index & change value by de-referencing
+	for idx := range myForm.TestCases {
+		(&myForm.TestCases[idx]).Epicid = tagNewValue
+	}
+
+	modifiedXML, err := xml.MarshalIndent(myForm, " ", "  ")
+	if err != nil {
+		return err
+	} else {
+		fmt.Println("Successfully marshalled the CustomJUnitTestSuite format to XML")
+	}
+	// Update modifiedXML with XMLheader
+	byteString := []byte(xml.Header + string(modifiedXML))
+	err = os.WriteFile(filename, byteString, 0644)
+	if err != nil {
+		return err
+	} else {
+		fmt.Println("Successfully saved the modified File")
+	}
+	return nil
+}

@@ -30,23 +30,31 @@ func TestTesting(t *testing.T) {
 	var r []Reporter
 	var filePath string
 	if ReportDir != "" {
-		// TODO: we should probably only be trying to create this directory once
-		// rather than once-per-Ginkgo-node.
+		// Create directory and save junit file at this path
 		if err := os.MkdirAll(ReportDir, 0755); err != nil {
 			log.Fatalf("Failed creating report directory: %v", err)
 		} else {
+			// Use filePath as variable, which can be used later to updates in file.
 			filePath = path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, config.GinkgoConfig.ParallelNode))
 			r = append(r, reporters.NewJUnitReporter(filePath))
 		}
 	}
-	log.Printf("\nStarting e2e run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
-	RunSpecsWithDefaultAndCustomReporters(t, "Kubernete-E2E-suite", r)
+	log.Printf("\nStarting E2E run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
+	RunSpecsWithDefaultAndCustomReporters(t, "Kubernetes-E2E-suite", r)
 
-	/*filebytes := testing2.ReadXML(filePath)
-	testing2.ModifyXML(filePath, filebytes)
-	*/
-	filebytes := testing2.ReadTheXML(filePath)
-	fmt.Println(string(filebytes))
+	// Method1
+	/* filebytes := testing2.ReadXML(filePath)
+	testing2.ModifyXML(filePath, filebytes, "JIRA-321") */
+
+	// Method2
+	filebytes, err := testing2.ReadTheXML(filePath)
+	if err != nil {
+		log.Fatalf("Failed reading the XML: %v", err)
+	}
+	err = testing2.ModifyTheXML(filePath, filebytes, "JIRAID-111")
+	if err != nil {
+		log.Fatalf("Failed to modify the XML: %v", err)
+	}
 }
 
 var _ = Describe("Test1 IsPersonAChild()", func() {
