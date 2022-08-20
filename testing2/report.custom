@@ -1,6 +1,0 @@
-Set Emptiness When the set does not contain items Should be empty | passed
-1PersonIsChild() When the person is child returns True | passed
-1PersonIsChild() When the person is NOT a child returns True | passed
-1PersonIsChild() When the person is empty returns True | passed
-1PersonIsChild() When the person is invalid and a number returns True | passed
-1PersonIsChild() 2PersonIsChild() context return true | passed
