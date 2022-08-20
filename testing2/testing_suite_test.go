@@ -42,8 +42,11 @@ func TestTesting(t *testing.T) {
 	log.Printf("\nStarting e2e run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
 	RunSpecsWithDefaultAndCustomReporters(t, "Kubernete-E2E-suite", r)
 
-	filebytes := testing2.ReadXML(filePath)
+	/*filebytes := testing2.ReadXML(filePath)
 	testing2.ModifyXML(filePath, filebytes)
+	*/
+	filebytes := testing2.ReadTheXML(filePath)
+	fmt.Println(string(filebytes))
 }
 
 var _ = Describe("Test1 IsPersonAChild()", func() {
