@@ -40,7 +40,7 @@ func ReadTheXML(filename string) ([]byte, error) {
 	if err != nil {
 		return []byte{}, err
 	}
-	fmt.Println("Successfully Opened the file: ", filename)
+	fmt.Println("Successfully opened the file: ", filename)
 	defer xmlFile.Close()
 	byteValue, err := io.ReadAll(xmlFile)
 	if err != nil {

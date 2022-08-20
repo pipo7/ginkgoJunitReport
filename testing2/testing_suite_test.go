@@ -29,17 +29,23 @@ func TestTesting(t *testing.T) {
 	// Use below code with old version of ginkgo
 	var r []Reporter
 	var filePath string
+	var nodenum int
 	if ReportDir != "" {
 		// Create directory and save junit file at this path
 		if err := os.MkdirAll(ReportDir, 0755); err != nil {
 			log.Fatalf("Failed creating report directory: %v", err)
 		} else {
+			nodenum = 0
+			if config.GinkgoConfig.ParallelTotal > 1 {
+				nodenum = config.GinkgoConfig.ParallelNode
+			}
+
 			// Use filePath as variable, which can be used later to updates in file.
-			filePath = path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, config.GinkgoConfig.ParallelNode))
+			filePath = path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, nodenum))
 			r = append(r, reporters.NewJUnitReporter(filePath))
 		}
 	}
-	log.Printf("\nStarting E2E run %q on Ginkgo node %d", "Run1", config.GinkgoConfig.ParallelNode)
+	log.Printf("\nStarting E2E run %q on Ginkgo node %d", "Run1", nodenum)
 	RunSpecsWithDefaultAndCustomReporters(t, "Kubernetes-E2E-suite", r)
 
 	// Method1
