@@ -43,10 +43,10 @@ func TestTesting(t *testing.T) {
 	RunSpecsWithDefaultAndCustomReporters(t, "Kubernetes-E2E-suite", r)
 
 	// Method1
-	/* filebytes := testing2.ReadXML(filePath)
-	testing2.ModifyXML(filePath, filebytes, "JIRA-321") */
+	filebytes := testing2.ReadXML(filePath)
+	testing2.ModifyXML(filePath, filebytes, "JIRA-321")
 
-	// Method2
+	/* // Method2
 	filebytes, err := testing2.ReadTheXML(filePath)
 	if err != nil {
 		log.Fatalf("Failed reading the XML: %v", err)
@@ -54,7 +54,7 @@ func TestTesting(t *testing.T) {
 	err = testing2.ModifyTheXML(filePath, filebytes, "JIRAID-777")
 	if err != nil {
 		log.Fatalf("Failed to modify the XML: %v", err)
-	}
+	} */
 }
 
 var _ = Describe("Test1 IsPersonAChild()", func() {

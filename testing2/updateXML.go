@@ -25,7 +25,6 @@ func ModifyXML(filename string, byteValue []byte, tagNewValue string) {
 	xmlString := string(byteValue)
 	replacewith := fmt.Sprintf(" epicid=%s classname", tagNewValue)
 	modifiedXML := S.ReplaceAll(xmlString, " classname", replacewith)
-	fmt.Println("Modified String", modifiedXML)
 
 	err := os.WriteFile(filename, []byte(modifiedXML), 0644)
 	if err != nil {
