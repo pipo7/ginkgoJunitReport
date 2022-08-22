@@ -19,13 +19,14 @@ type CustomJUnitTestSuite struct {
 type CustomJUnitTestCase struct {
 	Name      string `xml:"name,attr"`
 	ClassName string `xml:"classname,attr"`
-	// Add EPICID as attribute and non-mandatory
+	// Add EPICID as a non-mandatory attribute
 	Epicid         string                     `xml:"epicid,attr,omitempty"`
 	FailureMessage *CustomJUnitFailureMessage `xml:"failure,omitempty"`
 	Skipped        *CustomJUnitSkipped        `xml:"skipped,omitempty"`
 	Time           float64                    `xml:"time,attr"`
 	SystemOut      string                     `xml:"system-out,omitempty"`
 }
+
 type CustomJUnitSkipped struct {
 	Message string `xml:",chardata"`
 }
