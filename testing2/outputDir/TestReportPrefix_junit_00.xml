@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <testsuite name="Kubernetes-E2E-suite" tests="4" failures="1" errors="0" time="0.004">
-      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="1.3471e-05">
+  <testsuite name="Kubernetes-E2E-suite" tests="4" failures="1" errors="0" time="0">
+      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="7.2e-06">
           <failure type="Failure">/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:76&#xA;You may only call It from within a Describe, Context or When&#xA;/home/psinghal/ginkgotutorialOldVersion/testing2/testing_suite_test.go:76</failure>
       </testcase>
-      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="2.599e-06"></testcase>
-      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="9.223e-06"></testcase>
-      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="1.6e-06"></testcase>
+      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="2.341e-06"></testcase>
+      <testcase name="Test1 IsPersonAChild() When the person is child then it returns True" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="5.596e-06"></testcase>
+      <testcase name="Test1 IsPersonAChild() When the person is NOT a child then it returns False" epicid="JIRA-321" classname="Kubernetes-E2E-suite" time="9.51e-07"></testcase>
   </testsuite>

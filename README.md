@@ -1,5 +1,8 @@
 ## Run ginkgo
 // READ on https://github.com/onsi/ginkgo
+and https://golang.hotexamples.com/examples/github.com.onsi.ginkgo/-/RunSpecsWithDefaultAndCustomReporters/golang-runspecswithdefaultandcustomreporters-function-examples.html
+
+
 # go to testing directory and run
 cd testing &&  ginkgo bootstrap
 
