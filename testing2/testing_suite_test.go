@@ -9,8 +9,10 @@ import (
 	// using old version as ginkgo.
 	. "github.com/onsi/ginkgo"
 	"github.com/onsi/ginkgo/config"
-	"github.com/onsi/ginkgo/reporters"
+
+	// "github.com/onsi/ginkgo/reporters"
 	. "github.com/onsi/gomega"
+	"github.com/pipo7/ginkgoJunitReport/customreporters"
 
 	"testing"
 
@@ -27,7 +29,10 @@ func TestTesting(t *testing.T) {
 	RegisterFailHandler(Fail)
 	RunSpecs(t, "Testing Suite1")
 	// Use below code with old version of ginkgo
-	var r []Reporter
+	// When using ginkgo reporters
+	// var r []Reporter
+	// when using customReporter
+	var r []customreporters.Reporter
 	var filePath string
 	var nodenum int
 	if ReportDir != "" {
@@ -42,7 +47,9 @@ func TestTesting(t *testing.T) {
 
 			// Use filePath as variable, which can be used later to updates in file.
 			filePath = path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, nodenum))
-			r = append(r, reporters.NewJUnitReporter(filePath))
+			// r = append(r, reporters.NewJUnitReporter(filePath))
+			// using customReporter
+			r = append(r, customreporters.NewJUnitReporter(filePath))
 		}
 	}
 	log.Printf("\nStarting E2E run %q on Ginkgo node %d", "Run1", nodenum)
@@ -52,7 +59,7 @@ func TestTesting(t *testing.T) {
 	filebytes := testing2.ReadXML(filePath)
 	testing2.ModifyXML(filePath, filebytes, "JIRA-321") */
 
-	// Method2
+	/* // Method2
 	filebytes, err := testing2.ReadTheXML(filePath)
 	if err != nil {
 		log.Fatalf("Failed reading the XML: %v", err)
@@ -60,7 +67,7 @@ func TestTesting(t *testing.T) {
 	err = testing2.ModifyTheXML(filePath, filebytes, "JIRAID-777")
 	if err != nil {
 		log.Fatalf("Failed to modify the XML: %v", err)
-	}
+	} */
 }
 
 var _ = Describe("Test1 IsPersonAChild()", func() {

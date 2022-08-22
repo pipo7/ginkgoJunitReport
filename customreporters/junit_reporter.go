@@ -33,6 +33,7 @@ type JUnitTestSuite struct {
 type JUnitTestCase struct {
 	Name           string               `xml:"name,attr"`
 	ClassName      string               `xml:"classname,attr"`
+	Epicid         string               `xml:"epicid,attr,omitempty"`
 	FailureMessage *JUnitFailureMessage `xml:"failure,omitempty"`
 	Skipped        *JUnitSkipped        `xml:"skipped,omitempty"`
 	Time           float64              `xml:"time,attr"`
@@ -92,7 +93,7 @@ func (reporter *JUnitReporter) handleSetupSummary(name string, setupSummary *typ
 			Name:      name,
 			ClassName: reporter.testSuiteName,
 		}
-
+		testCase.Epicid = "JIRA-1000"
 		testCase.FailureMessage = &JUnitFailureMessage{
 			Type:    reporter.failureTypeForState(setupSummary.State),
 			Message: failureMessage(setupSummary.Failure),
@@ -107,6 +108,7 @@ func (reporter *JUnitReporter) SpecDidComplete(specSummary *types.SpecSummary) {
 	testCase := JUnitTestCase{
 		Name:      strings.Join(specSummary.ComponentTexts[1:], " "),
 		ClassName: reporter.testSuiteName,
+		Epicid:    "JIRA-1000",
 	}
 	if reporter.ReporterConfig.ReportPassed && specSummary.State == types.SpecStatePassed {
 		testCase.SystemOut = specSummary.CapturedOutput
@@ -175,4 +177,13 @@ func (reporter *JUnitReporter) failureTypeForState(state types.SpecState) string
 	default:
 		return ""
 	}
+}
+
+type Reporter interface {
+	SpecSuiteWillBegin(config config.GinkgoConfigType, summary *types.SuiteSummary)
+	BeforeSuiteDidRun(setupSummary *types.SetupSummary)
+	SpecWillRun(specSummary *types.SpecSummary)
+	SpecDidComplete(specSummary *types.SpecSummary)
+	AfterSuiteDidRun(setupSummary *types.SetupSummary)
+	SpecSuiteDidEnd(summary *types.SuiteSummary)
 }
