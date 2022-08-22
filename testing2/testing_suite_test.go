@@ -9,13 +9,14 @@ import (
 	// using old version as ginkgo.
 	. "github.com/onsi/ginkgo"
 	"github.com/onsi/ginkgo/config"
-
-	// "github.com/onsi/ginkgo/reporters"
+	"github.com/onsi/ginkgo/reporters"
 	. "github.com/onsi/gomega"
-	"github.com/pipo7/ginkgoJunitReport/customreporters"
+
+	//"github.com/pipo7/ginkgoJunitReport/customreporters"
 
 	"testing"
 
+	//"github.com/pipo7/ginkgoJunitReport/customreporters"
 	testing2 "github.com/pipo7/ginkgoJunitReport/testing2"
 )
 
@@ -30,9 +31,9 @@ func TestTesting(t *testing.T) {
 	RunSpecs(t, "Testing Suite1")
 	// Use below code with old version of ginkgo
 	// When using ginkgo reporters
-	// var r []Reporter
+	var r []Reporter
 	// when using customReporter
-	var r []customreporters.Reporter
+	// var r []customreporters.Reporter
 	var filePath string
 	var nodenum int
 	if ReportDir != "" {
@@ -47,17 +48,17 @@ func TestTesting(t *testing.T) {
 
 			// Use filePath as variable, which can be used later to updates in file.
 			filePath = path.Join(ReportDir, fmt.Sprintf("%v_junit_%02d.xml", ReportPrefix, nodenum))
-			// r = append(r, reporters.NewJUnitReporter(filePath))
+			r = append(r, reporters.NewJUnitReporter(filePath))
 			// using customReporter
-			r = append(r, customreporters.NewJUnitReporter(filePath))
+			//r = append(r, customreporters.NewJUnitReporter(filePath))
 		}
 	}
 	log.Printf("\nStarting E2E run %q on Ginkgo node %d", "Run1", nodenum)
 	RunSpecsWithDefaultAndCustomReporters(t, "Kubernetes-E2E-suite", r)
 
-	/* // Method1
+	// Method1
 	filebytes := testing2.ReadXML(filePath)
-	testing2.ModifyXML(filePath, filebytes, "JIRA-321") */
+	testing2.ModifyXML(filePath, filebytes, "JIRA-321")
 
 	/* // Method2
 	filebytes, err := testing2.ReadTheXML(filePath)
