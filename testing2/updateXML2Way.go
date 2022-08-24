@@ -5,7 +5,10 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strings"
 )
+
+// Define Custom formats for Junit
 
 type CustomJUnitTestSuite struct {
 	XMLName   xml.Name              `xml:"testsuite"`
@@ -35,6 +38,9 @@ type CustomJUnitFailureMessage struct {
 	Message string `xml:",chardata"`
 }
 
+// Use Custom formats and update Junit XML as per custom format
+
+// Reads the default Junit generated XML by RunSpecsWithDefaultAndCustomReporters
 func ReadTheXML(filename string) ([]byte, error) {
 
 	xmlFile, err := os.Open(filename)
@@ -51,7 +57,22 @@ func ReadTheXML(filename string) ([]byte, error) {
 	return byteValue, nil
 }
 
-func ModifyTheXML(filename string, byteValue []byte, tagNewValue string) error {
+/*
+func ExtractValuesFromTestCases(byteValue []byte, searchPattern string) []string {
+
+	var returnSlice []string
+	xmlString := string(byteValue)
+	modifiedXML := S.IndexAny() (xmlString, " classname", replacewith)
+
+	err := os.WriteFile(filename, []byte(modifiedXML), 0644)
+	if err != nil {
+		panic(err)
+	}
+	return returnSlice
+} */
+
+// Modifies the XML with tag,attr,values as per custom format
+func ModifyTheXML(filename string, byteValue []byte) error {
 
 	myForm := &CustomJUnitTestSuite{}
 	err := xml.Unmarshal(byteValue, &myForm)
@@ -63,7 +84,17 @@ func ModifyTheXML(filename string, byteValue []byte, tagNewValue string) error {
 
 	// Use TestSuite ptr to access slice by index & change value by de-referencing
 	for idx := range myForm.TestCases {
-		(&myForm.TestCases[idx]).Epicid = tagNewValue
+		// Read testcase name
+		testcasename := (myForm.TestCases[idx]).Name
+		testcasename = strings.ToLower(testcasename)
+		// check whether epicid exists in testcase name
+		if !strings.Contains(testcasename, "epicid") {
+			(&myForm.TestCases[idx]).Epicid = "epicid not found"
+		} else {
+			// extract and use the epicid
+			substring := strings.SplitAfter(testcasename, "epicid")[1]
+			(&myForm.TestCases[idx]).Epicid = strings.Split(substring, " ")[1]
+		}
 	}
 
 	modifiedXML, err := xml.MarshalIndent(myForm, " ", "  ")

@@ -16,3 +16,6 @@ ginkgo -slowSpecThreshold='5.0' -v
 
 # Shows example of 
 generate custom report using RunSpecsWithDefaultAndCustomReporters
+
+# Customereporter folder
+tried to modify all methods in junit_reporter.go but then also have to modify other related methods in ginkgo so thats a long approach. thus rather using the existing updateXML2Way.

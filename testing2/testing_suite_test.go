@@ -7,16 +7,16 @@ import (
 	"path"
 
 	// using old version as ginkgo.
+
 	. "github.com/onsi/ginkgo"
 	"github.com/onsi/ginkgo/config"
 	"github.com/onsi/ginkgo/reporters"
 	. "github.com/onsi/gomega"
 
-	//"github.com/pipo7/ginkgoJunitReport/customreporters"
-
 	"testing"
 
 	//"github.com/pipo7/ginkgoJunitReport/customreporters"
+
 	testing2 "github.com/pipo7/ginkgoJunitReport/testing2"
 )
 
@@ -33,7 +33,7 @@ func TestTesting(t *testing.T) {
 	// When using ginkgo reporters
 	var r []Reporter
 	// when using customReporter
-	// var r []customreporters.Reporter
+	//var r []customreporters.Reporter
 	var filePath string
 	var nodenum int
 	if ReportDir != "" {
@@ -56,24 +56,27 @@ func TestTesting(t *testing.T) {
 	log.Printf("\nStarting E2E run %q on Ginkgo node %d", "Run1", nodenum)
 	RunSpecsWithDefaultAndCustomReporters(t, "Kubernetes-E2E-suite", r)
 
-	// Method1
-	filebytes := testing2.ReadXML(filePath)
-	testing2.ModifyXML(filePath, filebytes, "JIRA-321")
+	/*
+		// Method1
+		filebytes := testing2.ReadXML(filePath)
+		testing2.ModifyXML(filePath, filebytes, "JIRA-321") */
 
-	/* // Method2
+	// Method2
 	filebytes, err := testing2.ReadTheXML(filePath)
 	if err != nil {
 		log.Fatalf("Failed reading the XML: %v", err)
 	}
-	err = testing2.ModifyTheXML(filePath, filebytes, "JIRAID-777")
+
+	err = testing2.ModifyTheXML(filePath, filebytes)
 	if err != nil {
 		log.Fatalf("Failed to modify the XML: %v", err)
-	} */
+	}
+
 }
 
 var _ = Describe("Test1 IsPersonAChild()", func() {
 	Context("When the person is child then it", func() {
-		It("returns True", func() {
+		It("returns True  EPICid JIRAID-1001 xxx", func() {
 			person := testing2.Person{
 				Age: 10,
 			}
@@ -85,7 +88,7 @@ var _ = Describe("Test1 IsPersonAChild()", func() {
 		fmt.Println("Current spec report example1:", CurrentGinkgoTestDescription())
 	})
 	Context("When the person is NOT a child then it", func() {
-		It("returns False", func() {
+		It("returns False epICID JIRAID-1002  ", func() {
 			person := testing2.Person{
 				Age: 20,
 			}
